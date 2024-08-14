@@ -25,37 +25,12 @@ ENV LANGUAGE="en_US:en"
 ENV LC_ALL="en_US.UTF-8"
 
 RUN dnf install -y \
-  autoconf \
-  autoconf-archive \
-  automake \
-  expat-devel \
-  expect-devel \
-  gcc \
-  gdk-pixbuf2-devel \
-  git \
-  glib2-devel \
-  glibc-all-langpacks \
-  gpgme-devel \
-  gtk2-devel \
-  libXScrnSaver-devel \
-  libcmocka-devel \
-  libcurl-devel \
-  libgcrypt-devel \
-  libmicrohttpd-devel \
-  libnotify-devel \
-  libotr-devel \
-  libsignal-protocol-c-devel \
-  libstrophe-devel \
-  libtool \
-  libuuid-devel \
-  make \
-  ncurses-devel \
-  openssl-devel \
-  python3 \
-  python3-devel \
-  qrencode-devel \
-  readline-devel \
-  sqlite-devel
+  autoconf autoconf-archive automake expat-devel expect-devel \
+  gcc gdk-pixbuf2-devel git glib2-devel glibc-all-langpacks gpgme-devel \
+  gtk2-devel libXScrnSaver-devel libcmocka-devel libcurl-devel libgcrypt-devel \
+  libmicrohttpd-devel libnotify-devel libotr-devel libsignal-protocol-c-devel \
+  libstrophe-devel libtool libuuid-devel make ncurses-devel openssl-devel \
+  python3 python3-devel qrencode-devel readline-devel sqlite-devel
 
 WORKDIR ${BUILD_FOLDER}
 
@@ -69,5 +44,9 @@ RUN git clone --recursive --depth 1 https://github.com/profanity-im/profanity \
  && cd .. \
  && rm -rf profanity
 
-ENTRYPOINT ["profanity"]
+RUN dnf remove -y autoconf autoconf-archive \
+    automake gcc git libtool make python3-devel \
+ && dnf autoremove \
+ && dnf clean all
 
+ENTRYPOINT ["profanity"]

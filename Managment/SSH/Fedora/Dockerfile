@@ -16,13 +16,13 @@
 FROM fedora:latest
 
 # Installing the SSH Server and Required Packages
-RUN dnf -y update && \
-    dnf -y install openssh-server && \
-    dnf clean all
+RUN dnf -y update \
+ && dnf -y install openssh-server \
+ && dnf clean all
 
 # Creating an "admin" user and setting a password
-RUN useradd -m -d /home/admin -s /bin/bash admin && \
-    echo "admin:pass" | chpasswd
+RUN useradd -m -d /home/admin -s /bin/bash admin \
+ && echo "admin:pass" | chpasswd
 
 # Host key generation
 RUN ssh-keygen -A
@@ -37,4 +37,4 @@ EXPOSE 22
 VOLUME ["/Users/"]
 
 # Run SSH-server
-CMD ["/usr/sbin/sshd", "-D"]
+ENTRYPOINT ["/usr/sbin/sshd", "-D"]

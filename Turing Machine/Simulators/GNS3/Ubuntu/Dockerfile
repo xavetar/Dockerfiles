@@ -17,11 +17,13 @@ FROM ubuntu:latest
 
 MAINTAINER Stanislav Mikhailov (xavetar) <xavetar@proton.me>
 
-RUN apt-get update && apt-get -y upgrade
-
-RUN apt-get -y install net-tools tcpdump telnet traceroute curl iperf3 knot-host openssh-client mtr-tiny socat nano vim-tiny nmap iputils-ping
+RUN apt-get update && apt-get -y upgrade \
+ && apt-get -y install net-tools tcpdump telnet traceroute curl \
+    iperf3 knot-host openssh-client mtr-tiny socat nano vim-tiny \
+    nmap iputils-ping
 
 RUN rm -rf /var/lib/apt/lists/*
 
 VOLUME ["/root"]
-CMD ["/bin/bash", "-i"]
+
+ENTRYPOINT ["/bin/bash", "-i"]
