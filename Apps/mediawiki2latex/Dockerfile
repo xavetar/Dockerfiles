@@ -13,7 +13,6 @@
 # limitations under the License.
 #
 
-
 FROM debian:latest as builder
 
 ARG GIT="https://github.com"
